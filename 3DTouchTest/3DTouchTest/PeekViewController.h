@@ -10,4 +10,6 @@
 
 @interface PeekViewController : UIViewController
 
+@property (nonatomic, copy) NSString *contentStr;
+
 @end

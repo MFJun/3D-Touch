@@ -11,6 +11,8 @@
 
 @interface PeekViewController ()
 
+@property (nonatomic, strong) UILabel *contentLabel;
+
 @end
 
 @implementation PeekViewController
@@ -19,6 +21,12 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor yellowColor];
+    
+    self.contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    [self.view addSubview:self.contentLabel];
+    self.contentLabel.center = self.view.center;
+    self.contentLabel.text = self.contentStr;
+    self.contentLabel.textAlignment = NSTextAlignmentCenter;
     
 }
 
@@ -32,16 +40,17 @@
         NSLog(@"Action 2 selected");
     }];
     
-    UIPreviewAction *tap = [UIPreviewAction actionWithTitle:@"Pop View" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
+    UIPreviewAction *action3 = [UIPreviewAction actionWithTitle:@"Pop View" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
         PopViewController *popViewController = [[PopViewController alloc] init];
         [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:popViewController animated:YES completion:nil];
+
     }];
     
     //生成Action Group
     UIPreviewActionGroup *group1 = [UIPreviewActionGroup actionGroupWithTitle:@"Preview Action Group" style:UIPreviewActionStyleDefault actions:@[action1, action2]];
     
     //生成Action Group
-    return @[group1,tap];
+    return @[group1,action3];
 }
 
 - (void)didReceiveMemoryWarning {
